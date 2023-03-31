@@ -1,20 +1,59 @@
+import  { useState } from 'react';
 import Head from 'next/head';
 import Image from 'next/image';
-import buildspaceLogo from '../assets/buildspace-logo.png';
+import buildspaceLogo from '../assets/Stoodyverse.png';
 
 const Home = () => {
+  const [userInput, setUserInput] = useState('');
+  const [apiOutput, setApiOutput] = useState('')
+const [isGenerating, setIsGenerating] = useState(false)
+
+const callGenerateEndpoint = async () => {
+  setIsGenerating(true);
+  
+  console.log("Calling OpenAI...")
+  const response = await fetch('/api/generate', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ userInput }),
+  });
+
+  const data = await response.json();
+  const { output } = data;
+  console.log("OpenAI replied...", output.text)
+
+  setApiOutput(`${output.text}`);
+  setIsGenerating(false);
+}
+  const onUserChangedText = (event) => {
+    console.log(event.target.value);
+    setUserInput(event.target.value);
+  };
   return (
     <div className="root">
       <Head>
-        <title>GPT-3 Writer | buildspace</title>
+        <title>Stoodyverse</title>
       </Head>
       <div className="container">
         <div className="header">
           <div className="header-title">
-            <h1>sup, insert your headline here</h1>
+            <h1>Stoodyverse</h1>
           </div>
           <div className="header-subtitle">
-            <h2>insert your subtitle here</h2>
+            <h2>A homeverse extension</h2>
+          </div>
+        </div>
+        <div className="prompt-container">
+          <textarea placeholder="start typing here" className="prompt-box" value ={userInput}
+          onChange={onUserChangedText}/>;
+          <div className="prompt-buttons">
+            <a className="generate-button" onClick={callGenerateEndpoint}>
+              <div className="generate">
+              <p>Generate</p>
+              </div>
+            </a>
           </div>
         </div>
       </div>
@@ -26,9 +65,13 @@ const Home = () => {
         >
           <div className="badge">
             <Image src={buildspaceLogo} alt="buildspace logo" />
-            <p>build with buildspace</p>
+            <p>build with love</p>
           </div>
+          
         </a>
+      </div>
+      <div>
+        
       </div>
     </div>
   );
