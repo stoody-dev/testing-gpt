@@ -2,7 +2,10 @@ import  { useState } from 'react';
 import Head from 'next/head';
 import Image from 'next/image';
 import buildspaceLogo from '../assets/Stoodyverse.png';
+<<<<<<< HEAD
 import { Configuration, OpenAIApi } from 'openai';
+=======
+>>>>>>> 9cee533e49eea1c78878cb45b777ad4b6a4dd9b4
 
 const Home = () => {
   const [userInput, setUserInput] = useState('');
@@ -12,6 +15,7 @@ const [isGenerating, setIsGenerating] = useState(false)
 const callGenerateEndpoint = async () => {
   setIsGenerating(true);
   
+<<<<<<< HEAD
  
 
 const configuration = new Configuration({
@@ -30,6 +34,20 @@ const respo = await openai.createCompletion({
 });
 console.log(respo)
 return 
+=======
+  console.log("Calling OpenAI...")
+  const response = await fetch('/api/generate', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ userInput }),
+  });
+
+  const data = await response.json();
+  const { output } = data;
+  console.log("OpenAI replied...", output.text)
+>>>>>>> 9cee533e49eea1c78878cb45b777ad4b6a4dd9b4
 
   setApiOutput(`${output.text}`);
   setIsGenerating(false);

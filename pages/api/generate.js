@@ -4,6 +4,7 @@ const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
+<<<<<<< HEAD
 
 export default async (req, res) => {
   const openai = new OpenAIApi(configuration);
@@ -23,3 +24,6 @@ export default async (req, res) => {
 
   return res.send(response)
 }
+=======
+const openai = new OpenAIApi(configuration);
+>>>>>>> 9cee533e49eea1c78878cb45b777ad4b6a4dd9b4
