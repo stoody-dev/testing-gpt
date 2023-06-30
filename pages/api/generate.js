@@ -1,3 +1,4 @@
+import { loadDefaultErrorComponents } from 'next/dist/server/load-components';
 import { Configuration, OpenAIApi } from 'openai';
 
 const configuration = new Configuration({
@@ -21,7 +22,15 @@ const generateAction = async (req, res) => {
   const basePromptOutput = baseCompletion.data.choices.pop();
 
   res.status(200).json({ output: basePromptOutput });
-
+  const basePromptOutputText = basePromptOutput.text;({
+    model: 'text-davinci-003',
+    prompt: `${basePromptPrefix}${req.body.userInput}${basePromptOutputText}`,
+    temperature: 0.7,
+    max_tokens: 250,
+  });
+  res.status(200).json({ output: basePromptOutput });
+  loadDefaultErrorComponents
+  
   
   
 };
