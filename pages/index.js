@@ -7,8 +7,8 @@ import { Configuration, OpenAIApi } from 'openai';
 
 const Home = () => {
   const [userInput, setUserInput] = useState('');
-  const [apiOutput, setApiOutput] = useState('')
-const [isGenerating, setIsGenerating] = useState(false)
+  const [apiOutput, setApiOutput] = useState('');
+  const [isGenerating, setIsGenerating] = useState(false);
 
 const callGenerateEndpoint = async () => {
   setIsGenerating(true);
