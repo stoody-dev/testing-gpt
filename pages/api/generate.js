@@ -55,6 +55,13 @@ const generateAction = async (req, res) => {
     max_tokens: 250,
   });
   res.status(200).json({ output: basePromptOutput });
+  res.status(100).json({output: basePromptOutputText}}
+  const basePromptOutputText = basePromptOutput.text;
+   openai.createCompletion({
+    model: 'text-davinci-003',
+    prompt: `${basePromptPrefix}${req.body.userInput}${basePromptOutputText}`,
+    temperature: 0.7,
+    max_tokens: 250,});
   
   
   
