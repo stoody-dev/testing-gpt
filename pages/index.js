@@ -1,82 +1,91 @@
-import  { useState } from 'react';
+import { useState } from 'react';
 import Head from 'next/head';
 import Image from 'next/image';
-import buildspaceLogo from '../assets/Stoodyverse.png';
+import buildspaceLogo from '../assets/buildspace-logo.png';
 
-import { Configuration, OpenAIApi } from 'openai';
-import { RequiredError } from 'openai/dist/base';
 
 const Home = () => {
   const [userInput, setUserInput] = useState('');
-  const [apiOutput, setApiOutput] = useState('');
-  const [isGenerating, setIsGenerating] = useState(false);
+  const [apiOutput, setApiOutput] = useState('')
+const [isGenerating, setIsGenerating] = useState(false)
 
 const callGenerateEndpoint = async () => {
   setIsGenerating(true);
-const configuration = new Configuration({
-  apiKey: process.env.NEXT_PUBLIC_OPEN_API})
+  
+  console.log("Calling OpenAI...")
+  const response = await fetch('/api/generate', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ userInput }),
+  });
 
-  const openai = new OpenAIApi(configuration);
+  const data = await response.json();
+  const { output } = data;
+  console.log("OpenAI replied...", output.text)
 
-const respo = await openai.createCompletion({
-  model: "text-davinci-003",
-  prompt: userInput,
-  temperature: 0.7,
-  max_tokens: 256,
-  top_p: 1,
-  frequency_penalty: 0,
-  presence_penalty: 0,
-});
-
-
-const response = await fetch('/api/generate', {
-  await openai.createCompletion({
-    model: "text-davinci-003",
-    prompt: userInput,
-    temperature: 0.7,
-    max_tokens: 256,
-    top_p: 1,
-    frequency_penalty: 0,
-    presence_penalty: 0,
-  })
-
-
-
-
+  setApiOutput(`${output.text}`);
+  setIsGenerating(false);
+}
   const onUserChangedText = (event) => {
     console.log(event.target.value);
     setUserInput(event.target.value);
   };
-  default:
-    undefined;
-  };
-  'use strict';
-  const { useState } = require('react');
-  const { Configuration, OpenAIApi } = require('openai');
-  const { default: buildspaceLogo } = require('../assets/Stoodyverse.png');
-  RequiredError;
-  const Home = () => { 
-    const [userInput, setUserInput] = useState('');
-    const [apiOutput, setApiOutput] = useState('');
-    const [isGenerating, setIsGenerating] = useState(false);
-    const callGenerateEndpoint = async () => {
-      setIsGenerating(true);
-      const configuration = new Configuration({
-        apiKey: process.env.NEXT_PUBLIC_OPEN_API_KEY,
-      });
-      const openai = new OpenAIApi(configuration);
-      const response = await openai.createCompletion({
-        model: 'text-davinci-003',
-        prompt: userInput,
-        temperature: 0.7,
-        max_tokens: 256,
-        top_p: 1,
-        frequency_penalty: 0,
-        presence_penalty: 0,
-      });
-      setApiOutput(response.data.choices[0].text);
-      setIsGenerating(false);
-    };
-  
+  return (
+    <div className="root">
+      <Head>
+        <title>Health Assistant | buildspace</title>
+      </Head>
+      <div className="container">
+        <div className="header">
+          <div className="header-title">
+            <h1>Health Assistant</h1>
+          </div>
+          <div className="header-subtitle">
+            <h2>Phase 1 review </h2>
+          </div>
+        </div>
+        <textarea
+          className="prompt-box"
+          placeholder="Enter your problem"
+          value={userInput}
+          onChange={onUserChangedText}
+        />;
+        </div>
+      <div className="prompt-buttons">
+    <a className="generate-button" onClick={callGenerateEndpoint}>
+      <div className="generate">
+        <p>Generate</p>
+      </div>
+    </a>
+  </div>
+  {apiOutput && (
+  <div className="output">
+    <div className="output-header-container">
+      <div className="output-header">
+        <h3>Output</h3>
+      </div>
+    </div>
+    <div className="output-content">
+      <p>{apiOutput}</p>
+    </div>
+  </div>
+)}
+      <div className="badge-container grow">
+        <a
+          href="https://buildspace.so/builds/ai-writer"
+          target="_blank"
+          rel="noreferrer"
+        >
+          <div className="badge">
+            <Image src={buildspaceLogo} alt="buildspace logo" />
+            
+          </div>
+        </a>
+      </div>
+    </div>
+  );
+};
 
 export default Home;
