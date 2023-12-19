@@ -35,12 +35,12 @@ const callGenerateEndpoint = async () => {
   return (
     <div className="root">
       <Head>
-        <title>Health Assistant | buildspace</title>
+        <title>AJAX: A Health Assistant</title>
       </Head>
       <div className="container">
         <div className="header">
           <div className="header-title">
-            <h1>Health Assistant</h1>
+            <h1>Ajax: A Health Assistant</h1>
           </div>
           <div className="header-subtitle">
             <h2>Phase 1 review </h2>
@@ -48,16 +48,16 @@ const callGenerateEndpoint = async () => {
         </div>
         <textarea
           className="prompt-box"
-          placeholder="Enter your problem"
+          placeholder="Enter your symptoms here..."
           value={userInput}
           onChange={onUserChangedText}
         />;
         </div>
       <div className="prompt-buttons">
-    <a className="generate-button" onClick={callGenerateEndpoint}>
-      <div className="generate">
-        <p>Generate</p>
-      </div>
+    <a className={isGenerating?'generate-button loading':'generate-button'} onClick={callGenerateEndpoint}>
+    <div className="generate">
+    {isGenerating ? <span className="loader"></span> : <p>Generate</p>}
+    </div>
     </a>
   </div>
   {apiOutput && (
@@ -74,7 +74,7 @@ const callGenerateEndpoint = async () => {
 )}
       <div className="badge-container grow">
         <a
-          href="https://buildspace.so/builds/ai-writer"
+          href="https://vitbhopal.ac.in/"
           target="_blank"
           rel="noreferrer"
         >

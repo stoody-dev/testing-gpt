@@ -248,8 +248,8 @@ textarea {
 }
 
 .badge img {
-    width: 21px;
-    height: 17px;
+    width: 100px;
+    height: 50px;
     image-rendering: pixelated;
     flex-shrink: 0;
     fill: black;
