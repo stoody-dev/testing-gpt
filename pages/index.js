@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import Head from 'next/head';
 import Image from 'next/image';
-import buildspaceLogo from '../assets/buildspace-logo.png';
+import asc from '../assets/asc.png';
 
 
 const Home = () => {
@@ -43,7 +43,7 @@ const callGenerateEndpoint = async () => {
             <h1>Ajax: A Health Assistant</h1>
           </div>
           <div className="header-subtitle">
-            <h2>Phase 1 review </h2>
+            <h2> </h2>
           </div>
         </div>
         <textarea
@@ -70,6 +70,8 @@ const callGenerateEndpoint = async () => {
     <div className="output-content">
       <p>{apiOutput}</p>
     </div>
+
+  
   </div>
 )}
       <div className="badge-container grow">
@@ -78,8 +80,10 @@ const callGenerateEndpoint = async () => {
           target="_blank"
           rel="noreferrer"
         >
+
+      
           <div className="badge">
-            <Image src={buildspaceLogo} alt="buildspace logo" />
+            <Image src={asc} alt="VIT logo" />
             
           </div>
         </a>
